@@ -1,0 +1,71 @@
+{
+  "mode": "3_Hardened_Tuned_CRS_PL2",
+  "attacks_blocked": "7/7",
+  "bypasses_or_gaps": 0,
+  "false_positives": 0,
+  "results": [
+    {
+      "id": "TC-01",
+      "category": "SQL Injection (Classic UNION)",
+      "kind": "attack",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "id": "TC-02",
+      "category": "SQL Injection (Comment-Obfuscated Tautology '1'/**/OR/**/'1'='1')",
+      "kind": "attack",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "id": "TC-03",
+      "category": "Reflected XSS (<script> tag)",
+      "kind": "attack",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "id": "TC-04",
+      "category": "Path Traversal / LFI (/etc/passwd)",
+      "kind": "attack",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "id": "TC-05",
+      "category": "OS Command Injection (; id)",
+      "kind": "attack",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "id": "TC-06",
+      "category": "Cloud Metadata SSRF (Detection Gap in CRS PL1)",
+      "kind": "attack",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "id": "TC-07",
+      "category": "Scanner User-Agent (sqlmap/1.8)",
+      "kind": "attack",
+      "status_code": 403,
+      "blocked": true
+    },
+    {
+      "id": "FP-01",
+      "category": "False Positive Check: Documentation note containing SQL tutorial ('1' OR '1'='1')",
+      "kind": "benign",
+      "status_code": 200,
+      "blocked": false
+    },
+    {
+      "id": "FP-02",
+      "category": "False Positive Check: Normal product search",
+      "kind": "benign",
+      "status_code": 200,
+      "blocked": false
+    }
+  ]
+}

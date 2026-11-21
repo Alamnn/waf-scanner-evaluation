@@ -1,0 +1,49 @@
+<style>body{background:#1e1e1e;margin:0;padding:24px}.w{background:#0d1117;color:#c9d1d9;font:12.5px/1.45 Menlo,monospace;padding:20px;border-radius:8px;width:1240px;white-space:pre-wrap;margin-bottom:16px}.h{color:#58a6ff}</style><div class=w><span class=h>$ python3 scripts/run_eval.py http://127.0.0.1:8080 && sqlmap -u 'http://127.0.0.1:8080/user?id=1' --batch</span>
+=== ModSecurity + OWASP CRS v3.3.9 Comparative Evaluation (Kali VM 172.16.167.131:8080) ===
+
+[1_Default_DetectionOnly]  Attacks Blocked: 0/7   Bypasses/Gaps: 7   False Positives: 0
+   TC-01  [ATTACK]  ALLOWED (200)    SQL Injection (Classic UNION)
+   TC-02  [ATTACK]  ALLOWED (500)    SQL Injection (Comment-Obfuscated Tautology &#x27;1&#x27;/**/OR/**/&#x27;1&#x27;=&#x27;1&#x27;)
+   TC-03  [ATTACK]  ALLOWED (200)    Reflected XSS (&lt;script&gt; tag)
+   TC-04  [ATTACK]  ALLOWED (200)    Path Traversal / LFI (/etc/passwd)
+   TC-05  [ATTACK]  ALLOWED (200)    OS Command Injection (; id)
+   TC-06  [ATTACK]  ALLOWED (200)    Cloud Metadata SSRF (Detection Gap in CRS PL1)
+   TC-07  [ATTACK]  ALLOWED (200)    Scanner User-Agent (sqlmap/1.8)
+   FP-01  [BENIGN]  ALLOWED (200)    False Positive Check: Documentation note containing SQL tutorial (&#x27;1&#x27; OR &#x27;1&#x27;=&#x27;1&#x27;)
+   FP-02  [BENIGN]  ALLOWED (200)    False Positive Check: Normal product search
+
+[2_Untuned_CRS_PL1_Blocking]  Attacks Blocked: 6/7   Bypasses/Gaps: 1   False Positives: 1
+   TC-01  [ATTACK]  BLOCKED (403)    SQL Injection (Classic UNION)
+   TC-02  [ATTACK]  BLOCKED (403)    SQL Injection (Comment-Obfuscated Tautology &#x27;1&#x27;/**/OR/**/&#x27;1&#x27;=&#x27;1&#x27;)
+   TC-03  [ATTACK]  BLOCKED (403)    Reflected XSS (&lt;script&gt; tag)
+   TC-04  [ATTACK]  BLOCKED (403)    Path Traversal / LFI (/etc/passwd)
+   TC-05  [ATTACK]  ALLOWED (200)    OS Command Injection (; id)
+   TC-06  [ATTACK]  BLOCKED (403)    Cloud Metadata SSRF (Detection Gap in CRS PL1)
+   TC-07  [ATTACK]  BLOCKED (403)    Scanner User-Agent (sqlmap/1.8)
+   FP-01  [BENIGN]  BLOCKED (403)    False Positive Check: Documentation note containing SQL tutorial (&#x27;1&#x27; OR &#x27;1&#x27;=&#x27;1&#x27;)
+   FP-02  [BENIGN]  ALLOWED (200)    False Positive Check: Normal product search
+
+[3_Hardened_Tuned_CRS_PL2]  Attacks Blocked: 7/7   Bypasses/Gaps: 0   False Positives: 0
+   TC-01  [ATTACK]  BLOCKED (403)    SQL Injection (Classic UNION)
+   TC-02  [ATTACK]  BLOCKED (403)    SQL Injection (Comment-Obfuscated Tautology &#x27;1&#x27;/**/OR/**/&#x27;1&#x27;=&#x27;1&#x27;)
+   TC-03  [ATTACK]  BLOCKED (403)    Reflected XSS (&lt;script&gt; tag)
+   TC-04  [ATTACK]  BLOCKED (403)    Path Traversal / LFI (/etc/passwd)
+   TC-05  [ATTACK]  BLOCKED (403)    OS Command Injection (; id)
+   TC-06  [ATTACK]  BLOCKED (403)    Cloud Metadata SSRF (Detection Gap in CRS PL1)
+   TC-07  [ATTACK]  BLOCKED (403)    Scanner User-Agent (sqlmap/1.8)
+   FP-01  [BENIGN]  ALLOWED (200)    False Positive Check: Documentation note containing SQL tutorial (&#x27;1&#x27; OR &#x27;1&#x27;=&#x27;1&#x27;)
+   FP-02  [BENIGN]  ALLOWED (200)    False Positive Check: Normal product search
+
+=== sqlmap v1.8.7 against Hardened WAF (http://127.0.0.1:8080/user?id=1) ===
+[*] starting @ 17:33:32 /2026-11-21/
+[17:33:33] [INFO] testing URL &#x27;http://127.0.0.1:8080/user?id=1&#x27;
+[17:33:33] [INFO] testing connection to the target URL
+[17:33:33] [WARNING] the web server responded with an HTTP error code (403) which could interfere with the results of the tests
+[17:33:33] [INFO] testing if the target URL content is stable
+[17:33:33] [INFO] testing if GET parameter &#x27;id&#x27; is dynamic
+[17:33:33] [INFO] testing for SQL injection on GET parameter &#x27;id&#x27;
+[17:33:33] [INFO] testing &#x27;AND boolean-based blind - WHERE or HAVING clause&#x27;
+[17:33:33] [INFO] testing &#x27;Boolean-based blind - Parameter replace (original value)&#x27;
+[17:33:33] [INFO] testing &#x27;MySQL &gt;= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)&#x27;
+[17:33:33] [INFO] testing &#x27;PostgreSQL AND error-based - WHERE or HAVING clause&#x27;
+[17:33:33] [INFO] testing &#x27;Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (IN)&#x27;</div>

@@ -16,9 +16,9 @@ TESTS = [
     },
     {
         "id": "TC-02",
-        "category": "SQL Injection (Comment-Obfuscated Tautology '1'/**/OR/**/'1'='1')",
+        "category": "SQL Injection (Boolean Tautology Bypass at PL1)",
         "kind": "attack",
-        "path": "/user?id=" + urllib.parse.quote("1'/**/OR/**/'1'='1"),
+        "path": "/user?id=" + urllib.parse.quote("1||1=1"),
         "expected_hardened": 403,
     },
     {
@@ -59,9 +59,9 @@ TESTS = [
     },
     {
         "id": "FP-01",
-        "category": "False Positive Check: Documentation note containing SQL tutorial ('1' OR '1'='1')",
+        "category": "False Positive Check: Natural language note with 'select ... from'",
         "kind": "benign",
-        "path": "/note?text=" + urllib.parse.quote("Tutorial example: never allow ' OR '1'='1 -- in raw SQL strings"),
+        "path": "/note?text=" + urllib.parse.quote("Please select a laptop from the IT catalog for union members"),
         "expected_hardened": 200,
     },
     {
